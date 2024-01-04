@@ -8,6 +8,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
+from pathlib import Path
+
+
 
 
 
@@ -24,7 +27,17 @@ selected_section = st.sidebar.radio("Go to", ["Data Cleaning", "About the Datase
 
 
 # Load the dataset
-df = pd.read_excel("Coursera Dataset copy.xlsx")
+# Assuming your dataset file is in the same directory as your Streamlit app file
+dataset_path = Path(__file__).parent / 'Coursera Dataset copy.xlsx'
+
+# Check if the file exists
+if dataset_path.exists():
+    # Load your dataset here using Pandas or any other library
+    df = pd.read_excel(dataset_path)
+    # Now you can use 'df' in your Streamlit app
+else:
+    st.error(f"Dataset file '{dataset_path}' not found.")
+#df = pd.read_excel("Coursera Dataset copy.xlsx")
 
 
 def clean_data(df):
