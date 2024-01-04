@@ -1,5 +1,5 @@
 # Importing libraries
-
+import tempfile
 import streamlit as st
 import pandas as pd
 import io
@@ -29,13 +29,24 @@ def load_data(link):
     return pd.read_excel(link)
 
     # Load your dataset here using Pandas or any other library
-    df = load_data(dataset_link)
-    # Now you can use 'df' in your Streamlit app
+uploaded_file = st.file_uploader("Upload your dataset (Excel file)", type=["xlsx"])
+
+# Check if a file was uploaded
+if uploaded_file is not None:
+
+    # Use a temporary file to save the uploaded content
+    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+        temp_file.write(uploaded_file.read())
+
+    # Load dataset
+    df = pd.read_excel(temp_file.name)
+
     # Capture the console output
     buffer = io.StringIO()
     df.info(buf=buffer)
     # Set the buffer position to the beginning
     buffer.seek(0)
+
 
     def clean_data(df):
         df['Completed'].fillna('Not Started Yet', inplace=True)
@@ -1271,3 +1282,6 @@ def load_data(link):
         st.dataframe(course_stats)
         st.markdown("")
         st.markdown("")
+
+else:
+    st.warning("Please upload a dataset.")
