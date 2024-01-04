@@ -1,4 +1,4 @@
-#Importing libraries
+# Importing libraries
 
 import streamlit as st
 import pandas as pd
@@ -9,30 +9,33 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 from pathlib import Path
-#setting the page title
+
+# setting the page title
 st.title("LEARNERS DASHBOARD")
 
-
-#Sidebar Navigation
+# Sidebar Navigation
 st.sidebar.title("Navigation")
 selected_section = st.sidebar.radio("Go to", ["Data Cleaning", "About the Dataset", "Data Insights"], index=2)
-
 
 # Load the dataset
 # Assuming your dataset file is in the same directory as your Streamlit app file
 dataset_path = Path("C:/Users/Siddharth/Desktop/vt/Coursera Dataset copy.xlsx")
+# Google Drive link for the dataset (replace with your link)
+dataset_link = "https://docs.google.com/spreadsheets/d/1RulzXrON1mBOVyRURMWEZjZYOwZTxsMX/edit?usp=sharing&ouid=111210297271806821867&rtpof=true&sd=true"
 
-# Check if the file exists
-if dataset_path.exists():
+
+@st.cache
+def load_data(link):
+    return pd.read_excel(link)
+
     # Load your dataset here using Pandas or any other library
-    df = pd.read_excel(dataset_path)
+    df = load_data(dataset_link)
     # Now you can use 'df' in your Streamlit app
     # Capture the console output
     buffer = io.StringIO()
     df.info(buf=buffer)
     # Set the buffer position to the beginning
     buffer.seek(0)
-
 
     def clean_data(df):
         df['Completed'].fillna('Not Started Yet', inplace=True)
@@ -58,7 +61,6 @@ if dataset_path.exists():
         df['Department'] = df['Department'].replace('#', 'Not Available')
         df_test = df
         return df
-
 
     # Section : Data Cleaning
 
@@ -1269,9 +1271,3 @@ if dataset_path.exists():
         st.dataframe(course_stats)
         st.markdown("")
         st.markdown("")
-
-else:
-    st.error(f"Dataset file '{dataset_path}' not found.")
-#df = pd.read_excel("Coursera Dataset copy.xlsx")
-
-
