@@ -22,7 +22,7 @@ selected_section = st.sidebar.radio("Go to", ["Data Cleaning", "About the Datase
 dataset_path = Path("C:/Users/Siddharth/Desktop/vt/Coursera Dataset copy.xlsx")
 # Google Drive link for the dataset (replace with your link)
 dataset_link = "https://docs.google.com/spreadsheets/d/1RulzXrON1mBOVyRURMWEZjZYOwZTxsMX/edit?usp=sharing&ouid=111210297271806821867&rtpof=true&sd=true"
-
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 @st.cache
 def load_data(link):
