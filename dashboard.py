@@ -9,14 +9,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 from pathlib import Path
-
-
-
-
-
-
-
-
 #setting the page title
 st.title("LEARNERS DASHBOARD")
 
@@ -28,7 +20,7 @@ selected_section = st.sidebar.radio("Go to", ["Data Cleaning", "About the Datase
 
 # Load the dataset
 # Assuming your dataset file is in the same directory as your Streamlit app file
-dataset_path = Path(__file__).parent / 'Coursera Dataset copy.xlsx'
+dataset_path = Path("C:/Users/Siddharth/Desktop/vt/Coursera Dataset copy.xlsx")
 
 # Check if the file exists
 if dataset_path.exists():
