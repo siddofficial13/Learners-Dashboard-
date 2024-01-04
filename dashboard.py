@@ -35,6 +35,11 @@ if dataset_path.exists():
     # Load your dataset here using Pandas or any other library
     df = pd.read_excel(dataset_path)
     # Now you can use 'df' in your Streamlit app
+    # Capture the console output
+    buffer = io.StringIO()
+    df.info(buf=buffer)
+    # Set the buffer position to the beginning
+    buffer.seek(0)
 else:
     st.error(f"Dataset file '{dataset_path}' not found.")
 #df = pd.read_excel("Coursera Dataset copy.xlsx")
@@ -71,11 +76,7 @@ def clean_data(df):
 
 
 
-# Capture the console output
-buffer = io.StringIO()
-df.info(buf=buffer)
-# Set the buffer position to the beginning
-buffer.seek(0)
+
 
 
 #Section : Data Cleaning
