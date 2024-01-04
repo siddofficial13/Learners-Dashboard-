@@ -4,7 +4,6 @@ import streamlit as st
 import pandas as pd
 import io
 import altair as alt
-import statsmodels.api as sm
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -749,33 +748,13 @@ elif selected_section == "Data Insights":
         {'Yes': 1, 'No': 0})
 
     # Add a constant to the independent variable
-    X = sm.add_constant(learners_atleast_started_the_course['Learning Hours Spent'])
-    y = learners_atleast_started_the_course['Completed']
 
-    # Fit logistic regression model
-    model = sm.Logit(y, X)
-    result = model.fit()
 
-    # Predict probabilities
-    learners_atleast_started_the_course['Probability'] = result.predict(X)
-
-    # Plot scatter plot
-    scatter_plot = sns.scatterplot(x='Learning Hours Spent', y='Completed', data=learners_atleast_started_the_course,
-                                   alpha=0.1)
-
-    # Plot logistic regression line
-    line_plot = sns.lineplot(x=learners_atleast_started_the_course['Learning Hours Spent'],
-                             y=learners_atleast_started_the_course['Probability'], color='red')
-
-    # Set plot labels and title
-    plt.title('Correlation between Learning Hours and Course Completion')
-    plt.xlabel('Learning Hours Spent')
-    plt.ylabel('Course Completion (1: Completed, 0: Not Completed)')
-
-    # Display the plot using Streamlit
     st.markdown("")
     st.markdown("")
-    st.pyplot()
+   # st.pyplot()
+    local_image_path = "img.png"
+    st.image(local_image_path, caption='Your Image Caption', use_column_width=True)
     st.markdown("")
     st.markdown("#### Correlation Value increases from Not Completed To Completed Courses Steepingly")
     st.markdown("Not Completed Courses Have been generally aborted after leaning few hours")
